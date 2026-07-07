@@ -27,7 +27,7 @@ public class ProductoController {
     @PostMapping
     public ResponseEntity<ProductoResponse> registrar(@Valid @RequestBody ProductoRequest request) {
         ProductoResponse response = service.registrarProducto(
-                request.getNombre(), request.getPrecio(), request.getStock(), request.getCategoriaId());
+                request.getNombre(), request.getDescripcion(), request.getPrecio(), request.getStock(), request.getCategoriaId());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -50,7 +50,7 @@ public class ProductoController {
     public ResponseEntity<ProductoResponse> actualizar(@PathVariable int id,
                                                         @Valid @RequestBody ActualizarProductoRequest request) {
         return ResponseEntity.ok(service.actualizarProducto(id, request.getNombre(),
-                request.getPrecio(), request.getStock(), request.getCategoriaId()));
+                request.getDescripcion(), request.getPrecio(), request.getStock(), request.getCategoriaId()));
     }
 
     @GetMapping("/categoria/{categoriaId}")

@@ -20,9 +20,9 @@ public class ProductoService {
         this.categoriaService = categoriaService;
     }
 
-    public ProductoResponse registrarProducto(String nombre, double precio, int stock, int categoriaId) {
+    public ProductoResponse registrarProducto(String nombre, String descripcion, double precio, int stock, int categoriaId) {
         var categoria = categoriaService.buscarCategoriaEntity(categoriaId);
-        Producto entity = repository.save(new Producto(0, nombre, precio, stock, categoriaId));
+        Producto entity = repository.save(new Producto(0, nombre, descripcion, precio, stock, categoriaId));
         return ProductoMapper.toResponse(entity, categoria.getNombre());
     }
 
@@ -71,10 +71,11 @@ public class ProductoService {
                 .toList();
     }
 
-    public ProductoResponse actualizarProducto(int id, String nombre, double precio, int stock, int categoriaId) {
+    public ProductoResponse actualizarProducto(int id, String nombre, String descripcion, double precio, int stock, int categoriaId) {
         Producto entity = buscarProductoEntity(id);
         var categoria = categoriaService.buscarCategoriaEntity(categoriaId);
         entity.setNombre(nombre);
+        entity.setDescripcion(descripcion);
         entity.setPrecio(precio);
         entity.setStock(stock);
         entity.setCategoriaId(categoriaId);

@@ -47,6 +47,8 @@ public class Main implements CommandLineRunner {
                     case 1:
                         System.out.print("Nombre: ");
                         String nombre = scanner.nextLine();
+                        System.out.print("Descripcion: ");
+                        String descripcion = scanner.nextLine();
                         System.out.print("Precio: ");
                         double precio = scanner.nextDouble();
                         scanner.nextLine();
@@ -56,7 +58,7 @@ public class Main implements CommandLineRunner {
                         System.out.print("ID Categoria: ");
                         int categoriaId = scanner.nextInt();
                         scanner.nextLine();
-                        ProductoResponse creado = productoService.registrarProducto(nombre, precio, stock, categoriaId);
+                        ProductoResponse creado = productoService.registrarProducto(nombre, descripcion, precio, stock, categoriaId);
                         System.out.println("Producto registrado! ID=" + creado.getId());
                         break;
 

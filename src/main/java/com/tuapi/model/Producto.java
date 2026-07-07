@@ -15,6 +15,9 @@ public class Producto {
     @Column(nullable = false)
     private double precio;
 
+    @Column
+    private String descripcion;
+
     @Column(nullable = false)
     private int stock;
 
@@ -23,9 +26,10 @@ public class Producto {
 
     public Producto() {}
 
-    public Producto(int id, String nombre, double precio, int stock, int categoriaId) {
+    public Producto(int id, String nombre, String descripcion, double precio, int stock, int categoriaId) {
         this.id = id;
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
         this.categoriaId = categoriaId;
@@ -54,6 +58,9 @@ public class Producto {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
+
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
     public int getStock() { return stock; }
     public void setStock(int stock) { this.stock = stock; }

@@ -10,6 +10,7 @@ public class ProductoMapper {
         return new ProductoResponse(
                 entity.getId(),
                 entity.getNombre(),
+                entity.getDescripcion(),
                 entity.getPrecio(),
                 entity.getStock(),
                 categoriaNombre
@@ -17,6 +18,6 @@ public class ProductoMapper {
     }
 
     public static Producto toEntity(ProductoRequest request) {
-        return new Producto(0, request.getNombre(), request.getPrecio(), request.getStock(), request.getCategoriaId());
+        return new Producto(0, request.getNombre(), request.getDescripcion(), request.getPrecio(), request.getStock(), request.getCategoriaId());
     }
 }
