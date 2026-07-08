@@ -11,4 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     List<Producto> findByCategoriaId(int categoriaId);
     Page<Producto> findByCategoriaId(int categoriaId, Pageable pageable);
+    long countByStock(int stock);
+    List<Producto> findByDestacadoTrue();
+    List<Producto> findByNombreContainingIgnoreCaseOrDescripcionContainingIgnoreCase(String nombre, String descripcion);
 }

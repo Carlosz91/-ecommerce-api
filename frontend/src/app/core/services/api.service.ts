@@ -108,20 +108,28 @@ export class ApiService {
     return this.http.delete<void>(`${environment.apiUrl}/proveedores/${id}`);
   }
 
-  agregarCarrito(productoId: number, cantidad: number): Observable<Carrito> {
-    return this.http.post<Carrito>(`${environment.apiUrl}/carrito/agregar`, { productoId, cantidad });
+  crearCarrito(): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/carrito`, {});
   }
 
-  eliminarItemCarrito(itemId: number): Observable<void> {
-    return this.http.delete<void>(`${environment.apiUrl}/carrito/eliminar/${itemId}`);
+  agregarItemCarrito(carritoId: number, productoId: number, cantidad: number): Observable<Carrito> {
+    return this.http.post<Carrito>(`${environment.apiUrl}/carrito/${carritoId}/items`, { productoId, cantidad });
+  }
+
+  eliminarItemCarrito(carritoId: number, itemId: number): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/carrito/${carritoId}/items/${itemId}`);
   }
 
   vaciarCarrito(carritoId: number): Observable<void> {
-    return this.http.delete<void>(`${environment.apiUrl}/carrito/vaciar/${carritoId}`);
+    return this.http.delete<void>(`${environment.apiUrl}/carrito/${carritoId}`);
   }
 
-  getCarrito(id: number): Observable<Carrito> {
-    return this.http.get<Carrito>(`${environment.apiUrl}/carrito/${id}`);
+  getCarrito(carritoId: number): Observable<Carrito> {
+    return this.http.get<Carrito>(`${environment.apiUrl}/carrito/${carritoId}`);
+  }
+
+  confirmarCarrito(carritoId: number, clienteId: number): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/carrito/${carritoId}/confirmar`, { clienteId });
   }
 
   getPedidos(): Observable<Pedido[]> {
@@ -134,6 +142,80 @@ export class ApiService {
 
   crearPedido(carritoId: number): Observable<Pedido> {
     return this.http.post<Pedido>(`${environment.apiUrl}/pedidos`, { carritoId });
+  }
+
+  googleLogin(idToken: string): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/auth/google`, { idToken });
+  }
+
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/auth/forgot-password`, { email });
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/auth/reset-password`, { token, password: newPassword });
+  }
+
+  updateProfile(data: any): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/usuarios/perfil`, data);
+  }
+
+  changePassword(data: any): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/usuarios/password`, data);
+  }
+
+  getProfile(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/usuarios/perfil`);
+  }
+
+  getWishlist(): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.apiUrl}/wishlist`);
+  }
+
+  addToWishlist(productoId: number): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/wishlist/${productoId}`, {});
+  }
+
+  removeFromWishlist(productoId: number): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/wishlist/${productoId}`);
+  }
+
+  checkWishlist(productoId: number): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/wishlist/check/${productoId}`);
+  }
+
+  getReviews(productoId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.apiUrl}/productos/${productoId}/reviews`);
+  }
+
+  getReviewStats(productoId: number): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/productos/${productoId}/reviews/stats`);
+  }
+
+  createReview(productoId: number, data: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/productos/${productoId}/reviews`, data);
+  }
+
+  getDashboardStats(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/admin/dashboard`);
+  }
+
+  updatePedidoEstado(pedidoId: number, estado: string): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/admin/pedidos/${pedidoId}/estado`, { estado });
+  }
+
+  getProductosDestacados(): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.apiUrl}/productos/destacados`);
+  }
+
+  uploadImagen(productoId: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post(`${environment.apiUrl}/admin/productos/${productoId}/imagen`, formData);
+  }
+
+  searchProductos(query: string): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.apiUrl}/productos/search?q=${encodeURIComponent(query)}`);
   }
 
   health(): Observable<any> {

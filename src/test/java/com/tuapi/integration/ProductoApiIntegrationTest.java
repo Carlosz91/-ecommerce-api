@@ -42,7 +42,7 @@ class ProductoApiIntegrationTest {
         usuarioRepository.deleteAll();
         categoriaRepository.deleteAll();
 
-        Categoria cat = categoriaRepository.save(new Categoria(0, "Test"));
+        Categoria cat = categoriaRepository.save(new Categoria(0, "Test", ""));
         categoriaId = cat.getId();
 
         String email = "test" + (testCounter++) + "@test.com";

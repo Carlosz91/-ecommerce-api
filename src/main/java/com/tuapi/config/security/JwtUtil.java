@@ -34,6 +34,17 @@ public class JwtUtil {
                 .compact();
     }
 
+    public String generarAccessToken(String email, String rol) {
+        return Jwts.builder()
+                .subject(email)
+                .claim("tipo", "access")
+                .claim("rol", rol)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + accessExpiracion))
+                .signWith(key)
+                .compact();
+    }
+
     public String generarRefreshToken(String email) {
         return Jwts.builder()
                 .subject(email)

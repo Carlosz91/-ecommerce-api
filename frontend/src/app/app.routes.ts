@@ -14,5 +14,9 @@ export const routes: Routes = [
   { path: 'admin/productos', loadComponent: () => import('./features/admin/admin-products.component').then(m => m.AdminProductsComponent), canActivate: [adminGuard] },
   { path: 'admin/categorias', loadComponent: () => import('./features/admin/admin-categories.component').then(m => m.AdminCategoriesComponent), canActivate: [adminGuard] },
   { path: 'admin/pedidos', loadComponent: () => import('./features/admin/admin-orders.component').then(m => m.AdminOrdersComponent), canActivate: [adminGuard] },
+  { path: 'forgot-password', loadComponent: () => import('./features/auth/forgot-password.component').then(m => m.ForgotPasswordComponent) },
+  { path: 'reset-password', loadComponent: () => import('./features/auth/reset-password.component').then(m => m.ResetPasswordComponent) },
+  { path: 'perfil', loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent), canActivate: [authGuard] },
+  { path: 'wishlist', loadComponent: () => import('./features/wishlist/wishlist.component').then(m => m.WishlistComponent), canActivate: [authGuard] },
   { path: '**', redirectTo: '/productos' },
 ];

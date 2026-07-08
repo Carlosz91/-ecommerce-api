@@ -37,10 +37,10 @@ class ProductoServiceTest {
 
     @Test
     void testRegistrarProducto() {
-        when(categoriaRepository.findById(1)).thenReturn(Optional.of(new Categoria(1, "Electronica")));
-        when(productoRepository.save(any())).thenReturn(new Producto(1, "Laptop", 1500, 10, 1));
+        when(categoriaRepository.findById(1)).thenReturn(Optional.of(new Categoria(1, "Electronica", "")));
+        when(productoRepository.save(any())).thenReturn(new Producto(1, "Laptop", "", 1500, 10, 1));
 
-        ProductoResponse response = productoService.registrarProducto("Laptop", 1500, 10, 1);
+        ProductoResponse response = productoService.registrarProducto("Laptop", "", 1500, 10, 1);
 
         assertNotNull(response);
         assertEquals("Laptop", response.getNombre());
@@ -57,7 +57,7 @@ class ProductoServiceTest {
 
     @Test
     void testAgregarStock() {
-        Producto producto = new Producto(1, "Laptop", 1500, 10, 1);
+        Producto producto = new Producto(1, "Laptop", "", 1500, 10, 1);
         when(productoRepository.findById(1)).thenReturn(Optional.of(producto));
         when(productoRepository.save(any())).thenReturn(producto);
 
@@ -68,7 +68,7 @@ class ProductoServiceTest {
 
     @Test
     void testDescontarStockInsuficiente() {
-        Producto producto = new Producto(1, "Laptop", 1500, 2, 1);
+        Producto producto = new Producto(1, "Laptop", "", 1500, 2, 1);
         when(productoRepository.findById(1)).thenReturn(Optional.of(producto));
 
         assertThrows(IllegalArgumentException.class, () -> productoService.descontarStock(1, 5));

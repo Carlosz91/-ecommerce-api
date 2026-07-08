@@ -22,6 +22,21 @@ public class Usuario {
     @Column(nullable = false)
     private Rol rol = Rol.USER;
 
+    @Column
+    private String googleId;
+
+    @Column
+    private String avatarUrl;
+
+    @Column
+    private String telefono;
+
+    @Column
+    private String direccion;
+
+    @Column(nullable = false)
+    private boolean emailVerified = false;
+
     public Usuario() {}
 
     public Usuario(int id, String nombre, String email, String password, Rol rol) {
@@ -42,6 +57,16 @@ public class Usuario {
     public void setPassword(String password) { this.password = password; }
     public Rol getRol() { return rol; }
     public void setRol(Rol rol) { this.rol = rol; }
+    public String getGoogleId() { return googleId; }
+    public void setGoogleId(String googleId) { this.googleId = googleId; }
+    public String getAvatarUrl() { return avatarUrl; }
+    public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
+    public String getTelefono() { return telefono; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public String getDireccion() { return direccion; }
+    public void setDireccion(String direccion) { this.direccion = direccion; }
+    public boolean isEmailVerified() { return emailVerified; }
+    public void setEmailVerified(boolean emailVerified) { this.emailVerified = emailVerified; }
 
     @Override
     public String toString() {

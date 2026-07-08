@@ -16,11 +16,11 @@ public class CategoriaService {
         this.repository = repository;
     }
 
-    public CategoriaResponse registrarCategoria(String nombre) {
+    public CategoriaResponse registrarCategoria(String nombre, String descripcion) {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre no puede estar vacio");
         }
-        Categoria entity = repository.save(new Categoria(0, nombre));
+        Categoria entity = repository.save(new Categoria(0, nombre, descripcion));
         return CategoriaMapper.toResponse(entity);
     }
 
@@ -36,9 +36,10 @@ public class CategoriaService {
         return CategoriaMapper.toResponse(entity);
     }
 
-    public CategoriaResponse actualizarCategoria(int id, String nombre) {
+    public CategoriaResponse actualizarCategoria(int id, String nombre, String descripcion) {
         Categoria entity = buscarCategoriaEntity(id);
         entity.setNombre(nombre);
+        entity.setDescripcion(descripcion);
         repository.save(entity);
         return CategoriaMapper.toResponse(entity);
     }

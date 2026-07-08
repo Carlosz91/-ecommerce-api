@@ -23,7 +23,7 @@ public class CategoriaController {
 
     @PostMapping
     public ResponseEntity<CategoriaResponse> registrar(@Valid @RequestBody CategoriaRequest request) {
-        CategoriaResponse response = service.registrarCategoria(request.getNombre());
+        CategoriaResponse response = service.registrarCategoria(request.getNombre(), request.getDescripcion());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -40,7 +40,7 @@ public class CategoriaController {
     @PutMapping("/{id}")
     public ResponseEntity<CategoriaResponse> actualizar(@PathVariable int id,
                                                          @Valid @RequestBody ActualizarCategoriaRequest request) {
-        return ResponseEntity.ok(service.actualizarCategoria(id, request.getNombre()));
+        return ResponseEntity.ok(service.actualizarCategoria(id, request.getNombre(), request.getDescripcion()));
     }
 
     @DeleteMapping("/{id}")

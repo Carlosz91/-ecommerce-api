@@ -9,5 +9,6 @@ export interface Pedido {
   id: number;
   fecha: string;
   total: number;
+  estado?: string;
   detalles: DetallePedido[];
 }

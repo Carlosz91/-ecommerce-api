@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, map, tap, finalize } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthResponse } from '../models/auth-response';
+import { ApiService } from './api.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -13,7 +14,7 @@ export class AuthService {
   isLoggedIn$ = this.user$.pipe(map(u => u !== null));
   isAdmin$ = this.user$.pipe(map(u => u?.rol === 'ADMIN'));
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private apiService: ApiService) {
     this.loadUserFromStorage();
   }
 
@@ -22,10 +23,10 @@ export class AuthService {
     if (token) {
       this.accessToken = token;
       this.refreshToken = localStorage.getItem('refresh_token') || '';
-      const decoded = this.decodeToken(token);
-      if (decoded) {
-        this.userSubject.next({ email: decoded.sub || decoded.email, rol: decoded.rol || decoded.role || decoded.authorities });
-      }
+    const decoded = this.decodeToken(token);
+    if (decoded) {
+      this.userSubject.next({ email: decoded.sub || decoded.email, rol: decoded.rol });
+    }
     }
   }
 
@@ -57,6 +58,12 @@ export class AuthService {
     );
   }
 
+  googleLogin(idToken: string): Observable<any> {
+    return this.apiService.googleLogin(idToken).pipe(
+      tap(res => this.handleAuthResponse(res))
+    );
+  }
+
   logout(): Observable<any> {
     return this.http.post(`${environment.apiUrl}/auth/logout`, {}).pipe(
       finalize(() => this.clearAuth())
@@ -70,7 +77,7 @@ export class AuthService {
     localStorage.setItem('refresh_token', res.refreshToken);
     const decoded = this.decodeToken(res.accessToken);
     if (decoded) {
-      this.userSubject.next({ email: decoded.sub || decoded.email, rol: decoded.rol || decoded.role || decoded.authorities });
+      this.userSubject.next({ email: decoded.sub || decoded.email, rol: res.rol });
     }
   }
 

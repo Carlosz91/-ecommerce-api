@@ -1,4 +1,4 @@
-import { Component, Injectable, OnDestroy } from '@angular/core';
+import { Component, Injectable, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
@@ -54,17 +54,20 @@ export class ToastComponent implements OnDestroy {
   toast: { message: string; type: string } | null = null;
   private sub: Subscription;
 
-  constructor(private toastService: ToastService) {
-    this.sub = this.toastService.toast$.subscribe(t => this.toast = t);
+  constructor(private toastService: ToastService, private cdr: ChangeDetectorRef) {
+    this.sub = this.toastService.toast$.subscribe(t => {
+      this.toast = t;
+      this.cdr.detectChanges();
+    });
   }
 
   get toastClass(): string {
     if (!this.toast) return '';
     const base = 'pointer-events-auto';
     switch (this.toast.type) {
-      case 'success': return `${base} bg-green-500`;
+      case 'success': return `${base} bg-emerald-500`;
       case 'error': return `${base} bg-red-500`;
-      default: return `${base} bg-blue-500`;
+      default: return `${base} bg-gold-600`;
     }
   }
 

@@ -39,6 +39,20 @@ public class ProductoService {
                 .toList();
     }
 
+    public List<ProductoResponse> listarDestacados() {
+        return repository.findByDestacadoTrue().stream()
+                .map(p -> ProductoMapper.toResponse(p,
+                        categoriaService.buscarCategoriaEntity(p.getCategoriaId()).getNombre()))
+                .toList();
+    }
+
+    public List<ProductoResponse> buscarPorNombre(String q) {
+        return repository.findByNombreContainingIgnoreCaseOrDescripcionContainingIgnoreCase(q, q).stream()
+                .map(p -> ProductoMapper.toResponse(p,
+                        categoriaService.buscarCategoriaEntity(p.getCategoriaId()).getNombre()))
+                .toList();
+    }
+
     public ProductoResponse buscarProducto(int id) {
         Producto entity = buscarProductoEntity(id);
         var categoria = categoriaService.buscarCategoriaEntity(entity.getCategoriaId());

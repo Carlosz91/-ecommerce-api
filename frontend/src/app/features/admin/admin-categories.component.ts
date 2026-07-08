@@ -13,8 +13,8 @@ import { LoadingComponent } from '../../shared/loading.component';
   template: `
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="flex items-center justify-between mb-8">
-        <h1 class="text-3xl font-bold text-gray-800">Gestionar Categor\u00edas</h1>
-        <button (click)="openModal()" class="px-5 py-2.5 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors">
+        <h1 class="text-3xl font-bold text-stone-800">Gestionar Categor\u00edas</h1>
+        <button (click)="openModal()" class="px-5 py-2.5 bg-gold-600 text-white text-sm font-medium rounded-lg hover:bg-gold-700 transition-colors">
           + Nueva categor\u00eda
         </button>
       </div>
@@ -23,7 +23,7 @@ import { LoadingComponent } from '../../shared/loading.component';
 
       @if (categorias.length === 0 && !loading) {
         <div class="text-center py-16 bg-white rounded-2xl shadow-sm">
-          <p class="text-gray-500">No hay categor\u00edas registradas</p>
+          <p class="text-stone-500">No hay categor\u00edas registradas</p>
         </div>
       }
 
@@ -31,22 +31,22 @@ import { LoadingComponent } from '../../shared/loading.component';
         <div class="overflow-x-auto">
           <table class="w-full">
             <thead>
-              <tr class="border-b border-gray-200 bg-gray-50">
-                <th class="text-left px-6 py-4 text-sm font-semibold text-gray-600">ID</th>
-                <th class="text-left px-6 py-4 text-sm font-semibold text-gray-600">Nombre</th>
-                <th class="text-left px-6 py-4 text-sm font-semibold text-gray-600">Descripci\u00f3n</th>
-                <th class="text-center px-6 py-4 text-sm font-semibold text-gray-600">Acciones</th>
+              <tr class="border-b border-stone-200 bg-stone-50">
+                <th class="text-left px-6 py-4 text-sm font-semibold text-stone-600">ID</th>
+                <th class="text-left px-6 py-4 text-sm font-semibold text-stone-600">Nombre</th>
+                <th class="text-left px-6 py-4 text-sm font-semibold text-stone-600">Descripci\u00f3n</th>
+                <th class="text-center px-6 py-4 text-sm font-semibold text-stone-600">Acciones</th>
               </tr>
             </thead>
             <tbody>
               @for (cat of categorias; track cat.id) {
-                <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                  <td class="px-6 py-4 text-sm text-gray-500">{{ cat.id }}</td>
-                  <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ cat.nombre }}</td>
-                  <td class="px-6 py-4 text-sm text-gray-500">{{ cat.descripcion }}</td>
+                <tr class="border-b border-stone-100 hover:bg-stone-50 transition-colors">
+                  <td class="px-6 py-4 text-sm text-stone-500">{{ cat.id }}</td>
+                  <td class="px-6 py-4 text-sm font-medium text-stone-800">{{ cat.nombre }}</td>
+                  <td class="px-6 py-4 text-sm text-stone-500">{{ cat.descripcion }}</td>
                   <td class="px-6 py-4 text-sm text-center">
                     <div class="flex items-center justify-center gap-2">
-                      <button (click)="editCategoria(cat)" class="p-1.5 text-blue-500 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors" title="Editar">
+                      <button (click)="editCategoria(cat)" class="p-1.5 text-gold-600 hover:text-gold-800 hover:bg-gold-50 rounded-lg transition-colors" title="Editar">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                         </svg>
@@ -69,23 +69,23 @@ import { LoadingComponent } from '../../shared/loading.component';
     @if (modalOpen) {
       <div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" (click)="closeModal()">
         <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md" (click)="$event.stopPropagation()">
-          <h2 class="text-xl font-bold text-gray-800 mb-6">{{ editingCategoria ? 'Editar' : 'Nueva' }} categor\u00eda</h2>
+          <h2 class="text-xl font-bold text-stone-800 mb-6">{{ editingCategoria ? 'Editar' : 'Nueva' }} categor\u00eda</h2>
           <form (ngSubmit)="saveCategoria()" class="space-y-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+              <label class="block text-sm font-medium text-stone-700 mb-1">Nombre</label>
               <input type="text" [(ngModel)]="formCategoria.nombre" name="nombre" required
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-colors text-sm">
+                class="w-full px-4 py-2.5 border border-stone-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500 outline-none transition-colors text-sm">
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Descripci\u00f3n</label>
+              <label class="block text-sm font-medium text-stone-700 mb-1">Descripci\u00f3n</label>
               <textarea [(ngModel)]="formCategoria.descripcion" name="descripcion" rows="3"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-colors text-sm"></textarea>
+                class="w-full px-4 py-2.5 border border-stone-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500 outline-none transition-colors text-sm"></textarea>
             </div>
             <div class="flex gap-3 pt-4">
-              <button type="button" (click)="closeModal()" class="flex-1 py-2.5 px-4 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors text-sm">
+              <button type="button" (click)="closeModal()" class="flex-1 py-2.5 px-4 border border-stone-300 text-stone-700 font-medium rounded-lg hover:bg-stone-50 transition-colors text-sm">
                 Cancelar
               </button>
-              <button type="submit" class="flex-1 py-2.5 px-4 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors text-sm">
+              <button type="submit" class="flex-1 py-2.5 px-4 bg-gold-600 text-white font-medium rounded-lg hover:bg-gold-700 transition-colors text-sm">
                 {{ editingCategoria ? 'Guardar cambios' : 'Crear categor\u00eda' }}
               </button>
             </div>

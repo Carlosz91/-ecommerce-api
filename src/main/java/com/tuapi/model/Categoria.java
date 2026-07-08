@@ -12,11 +12,15 @@ public class Categoria {
     @Column(nullable = false, unique = true)
     private String nombre;
 
+    @Column
+    private String descripcion;
+
     public Categoria() {}
 
-    public Categoria(int id, String nombre) {
+    public Categoria(int id, String nombre, String descripcion) {
         this.id = id;
         this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
     public int getId() {
@@ -34,6 +38,9 @@ public class Categoria {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
     @Override
     public String toString() {

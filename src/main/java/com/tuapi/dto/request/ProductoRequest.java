@@ -20,6 +20,12 @@ public class ProductoRequest {
     @Positive(message = "La categoria es obligatoria")
     private int categoriaId;
 
+    private String imagenUrl;
+    private boolean destacado;
+    private double descuento;
+    private Double precioOriginal;
+    private String marca;
+
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public String getDescripcion() { return descripcion; }
@@ -30,4 +36,14 @@ public class ProductoRequest {
     public void setStock(int stock) { this.stock = stock; }
     public int getCategoriaId() { return categoriaId; }
     public void setCategoriaId(int categoriaId) { this.categoriaId = categoriaId; }
+    public String getImagenUrl() { return imagenUrl; }
+    public void setImagenUrl(String imagenUrl) { this.imagenUrl = imagenUrl; }
+    public boolean isDestacado() { return destacado; }
+    public void setDestacado(boolean destacado) { this.destacado = destacado; }
+    public double getDescuento() { return descuento; }
+    public void setDescuento(double descuento) { this.descuento = descuento; }
+    public Double getPrecioOriginal() { return precioOriginal; }
+    public void setPrecioOriginal(Double precioOriginal) { this.precioOriginal = precioOriginal; }
+    public String getMarca() { return marca; }
+    public void setMarca(String marca) { this.marca = marca; }
 }

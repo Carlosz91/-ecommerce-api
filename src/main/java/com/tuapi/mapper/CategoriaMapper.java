@@ -7,10 +7,10 @@ import com.tuapi.model.Categoria;
 public class CategoriaMapper {
 
     public static CategoriaResponse toResponse(Categoria entity) {
-        return new CategoriaResponse(entity.getId(), entity.getNombre());
+        return new CategoriaResponse(entity.getId(), entity.getNombre(), entity.getDescripcion());
     }
 
     public static Categoria toEntity(CategoriaRequest request) {
-        return new Categoria(0, request.getNombre());
+        return new Categoria(0, request.getNombre(), request.getDescripcion());
     }
 }

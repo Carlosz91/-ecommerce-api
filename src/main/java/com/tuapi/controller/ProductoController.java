@@ -41,6 +41,16 @@ public class ProductoController {
         return ResponseEntity.ok(service.listarProductos(pageable));
     }
 
+    @GetMapping("/destacados")
+    public ResponseEntity<List<ProductoResponse>> listarDestacados() {
+        return ResponseEntity.ok(service.listarDestacados());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductoResponse>> buscarPorNombre(@RequestParam String q) {
+        return ResponseEntity.ok(service.buscarPorNombre(q));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ProductoResponse> buscar(@PathVariable int id) {
         return ResponseEntity.ok(service.buscarProducto(id));

@@ -53,4 +53,42 @@ public class UsuarioService {
         }
         return false;
     }
+
+    public UsuarioResponse actualizarPerfil(int id, String nombre, String telefono, String direccion) {
+        Usuario entity = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+        if (nombre != null) entity.setNombre(nombre);
+        if (telefono != null) entity.setTelefono(telefono);
+        if (direccion != null) entity.setDireccion(direccion);
+        entity = repository.save(entity);
+        UsuarioResponse response = UsuarioMapper.toResponse(entity);
+        response.setTelefono(entity.getTelefono());
+        response.setDireccion(entity.getDireccion());
+        response.setGoogleId(entity.getGoogleId());
+        response.setAvatarUrl(entity.getAvatarUrl());
+        response.setEmailVerified(entity.isEmailVerified());
+        return response;
+    }
+
+    public void cambiarPassword(int id, String currentPassword, String newPassword) {
+        Usuario entity = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+        if (!passwordEncoder.matches(currentPassword, entity.getPassword())) {
+            throw new IllegalArgumentException("Contraseña actual incorrecta");
+        }
+        entity.setPassword(passwordEncoder.encode(newPassword));
+        repository.save(entity);
+    }
+
+    public Usuario buscarPorEmail(String email) {
+        return repository.findByEmail(email).orElse(null);
+    }
+
+    public Usuario registrarOAuthUsuario(String googleId, String nombre, String email, String avatarUrl) {
+        Usuario usuario = new Usuario(0, nombre, email, "", Rol.USER);
+        usuario.setGoogleId(googleId);
+        usuario.setAvatarUrl(avatarUrl);
+        usuario.setEmailVerified(true);
+        return repository.save(usuario);
+    }
 }

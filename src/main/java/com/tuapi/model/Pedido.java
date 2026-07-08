@@ -18,6 +18,9 @@ public class Pedido {
 
     private double total;
 
+    @Column(nullable = false)
+    private String estado = "PENDIENTE";
+
     public Pedido() {}
 
     public Pedido(int id, int clienteId, LocalDate fecha, double total) {
@@ -35,6 +38,8 @@ public class Pedido {
     public void setFecha(LocalDate fecha) { this.fecha = fecha; }
     public double getTotal() { return total; }
     public void setTotal(double total) { this.total = total; }
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
 
     @Override
     public String toString() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { ApiService } from '../../core/services/api.service';
@@ -13,17 +13,17 @@ import { LoadingComponent } from '../../shared/loading.component';
   imports: [CommonModule, RouterModule, LoadingComponent],
   template: `
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 class="text-3xl font-bold text-gray-800 mb-8">Tu Carrito</h1>
+      <h1 class="text-3xl font-bold text-stone-800 mb-8">Tu Carrito</h1>
 
       <app-loading [visible]="loading" />
 
       @if (!loading && (!carrito || carrito.items.length === 0)) {
         <div class="text-center py-16 bg-white rounded-2xl shadow-sm">
-          <svg class="w-20 h-20 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-20 h-20 mx-auto text-stone-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
           </svg>
-          <p class="text-gray-500 text-lg mb-4">Tu carrito est\u00e1 vac\u00edo</p>
-          <a routerLink="/productos" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+          <p class="text-stone-500 text-lg mb-4">Tu carrito est\u00e1 vac\u00edo</p>
+          <a routerLink="/productos" class="inline-flex items-center px-6 py-3 bg-gold-600 text-white font-medium rounded-lg hover:bg-gold-700 transition-colors">
             Explorar productos
           </a>
         </div>
@@ -34,25 +34,25 @@ import { LoadingComponent } from '../../shared/loading.component';
           <div class="overflow-x-auto">
             <table class="w-full">
               <thead>
-                <tr class="border-b border-gray-200 bg-gray-50">
-                  <th class="text-left px-6 py-4 text-sm font-semibold text-gray-600">Producto</th>
-                  <th class="text-center px-6 py-4 text-sm font-semibold text-gray-600">Precio unit.</th>
-                  <th class="text-center px-6 py-4 text-sm font-semibold text-gray-600">Cantidad</th>
-                  <th class="text-center px-6 py-4 text-sm font-semibold text-gray-600">Subtotal</th>
-                  <th class="text-center px-6 py-4 text-sm font-semibold text-gray-600"></th>
+                <tr class="border-b border-stone-200 bg-stone-50">
+                  <th class="text-left px-6 py-4 text-sm font-semibold text-stone-600">Producto</th>
+                  <th class="text-center px-6 py-4 text-sm font-semibold text-stone-600">Precio unit.</th>
+                  <th class="text-center px-6 py-4 text-sm font-semibold text-stone-600">Cantidad</th>
+                  <th class="text-center px-6 py-4 text-sm font-semibold text-stone-600">Subtotal</th>
+                  <th class="text-center px-6 py-4 text-sm font-semibold text-stone-600"></th>
                 </tr>
               </thead>
               <tbody>
                 @for (item of carrito.items; track item.id) {
-                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                  <tr class="border-b border-stone-100 hover:bg-stone-50 transition-colors">
                     <td class="px-6 py-4">
-                      <span class="text-sm font-medium text-gray-800">{{ item.productoNombre }}</span>
+                      <span class="text-sm font-medium text-stone-800">{{ item.productoNombre }}</span>
                     </td>
-                    <td class="px-6 py-4 text-center text-sm text-gray-600">\${{ item.precioUnitario.toFixed(2) }}</td>
+                    <td class="px-6 py-4 text-center text-sm text-stone-600">\${{ item.precioUnitario.toFixed(2) }}</td>
                     <td class="px-6 py-4 text-center">
-                      <span class="text-sm font-medium text-gray-800">{{ item.cantidad }}</span>
+                      <span class="text-sm font-medium text-stone-800">{{ item.cantidad }}</span>
                     </td>
-                    <td class="px-6 py-4 text-center text-sm font-semibold text-gray-800">\${{ item.subtotal.toFixed(2) }}</td>
+                    <td class="px-6 py-4 text-center text-sm font-semibold text-stone-800">\${{ item.subtotal.toFixed(2) }}</td>
                     <td class="px-6 py-4 text-center">
                       <button (click)="removeItem(item.id)" class="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,17 +66,17 @@ import { LoadingComponent } from '../../shared/loading.component';
             </table>
           </div>
 
-          <div class="px-6 py-6 bg-gray-50 border-t border-gray-200">
+          <div class="px-6 py-6 bg-stone-50 border-t border-stone-200">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div class="flex items-center gap-2">
-                <span class="text-lg font-semibold text-gray-600">Total:</span>
-                <span class="text-3xl font-bold text-blue-600">\${{ carrito.total.toFixed(2) }}</span>
+                <span class="text-lg font-semibold text-stone-600">Total:</span>
+                <span class="text-3xl font-bold text-gold-600">\${{ carrito.total.toFixed(2) }}</span>
               </div>
               <div class="flex gap-3">
-                <button (click)="vaciarCarrito()" class="px-5 py-2.5 text-sm font-medium text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">
+                <button (click)="vaciarCarrito()" class="px-5 py-2.5 text-sm font-medium text-stone-600 border border-stone-300 rounded-lg hover:bg-stone-100 transition-colors">
                   Vaciar carrito
                 </button>
-                <a routerLink="/checkout" class="px-6 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all">
+                <a routerLink="/checkout" class="px-6 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-gold-600 to-bronze-600 rounded-lg hover:from-gold-700 hover:to-bronze-700 transition-all">
                   Realizar pedido
                 </a>
               </div>
@@ -95,7 +95,8 @@ export class CartComponent implements OnInit {
     private api: ApiService,
     private authService: AuthService,
     private toastService: ToastService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -110,16 +111,19 @@ export class CartComponent implements OnInit {
       next: (res) => {
         this.carrito = res;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: () => {
         this.loading = false;
         this.carrito = { id: 0, items: [], total: 0 };
+        this.cdr.detectChanges();
       }
     });
   }
 
   removeItem(itemId: number) {
-    this.api.eliminarItemCarrito(itemId).subscribe({
+    if (!this.carrito?.id) return;
+    this.api.eliminarItemCarrito(this.carrito.id, itemId).subscribe({
       next: () => {
         this.toastService.show('Producto eliminado del carrito', 'success');
         this.loadCart();
